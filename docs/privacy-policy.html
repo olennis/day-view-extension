@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Descle - Privacy Policy</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.7; color: #1a1a1a; max-width: 720px; margin: 0 auto; padding: 40px 20px; }
+    h1 { font-size: 28px; margin-bottom: 8px; }
+    .updated { color: #666; font-size: 14px; margin-bottom: 40px; }
+    h2 { font-size: 20px; margin-top: 32px; margin-bottom: 12px; }
+    p, li { font-size: 15px; color: #333; }
+    p { margin-bottom: 12px; }
+    ul { padding-left: 24px; margin-bottom: 12px; }
+    li { margin-bottom: 6px; }
+    table { width: 100%; border-collapse: collapse; margin: 12px 0 20px; }
+    th, td { text-align: left; padding: 10px 12px; border: 1px solid #e0e0e0; font-size: 14px; }
+    th { background: #f5f5f5; font-weight: 600; }
+    a { color: #6d28d9; }
+    .footer { margin-top: 48px; padding-top: 24px; border-top: 1px solid #e0e0e0; font-size: 13px; color: #888; }
+  </style>
+</head>
+<body>
+  <h1>Descle Privacy Policy</h1>
+  <p class="updated">Last updated: 2026-05-11</p>
+
+  <h2>1. Overview</h2>
+  <p>Descle is a Chrome extension that replaces the new tab page with a dashboard displaying your schedule, todos, and bookmarks. This policy explains what data we access, how we use it, and how it is stored.</p>
+
+  <h2>2. Data We Access</h2>
+  <table>
+    <tr><th>Permission</th><th>Data Accessed</th><th>Purpose</th></tr>
+    <tr><td>identity</td><td>Google account email, profile image</td><td>Google Calendar authentication</td></tr>
+    <tr><td>identity (OAuth)</td><td>Google Calendar events (read-only)</td><td>Display today's schedule</td></tr>
+    <tr><td>bookmarks</td><td>Chrome bookmark titles and URLs</td><td>Display bookmarks in the dashboard</td></tr>
+    <tr><td>storage</td><td>User-created todos, preferences</td><td>Persist settings across sessions</td></tr>
+    <tr><td>alarms</td><td>None</td><td>Periodic calendar data refresh</td></tr>
+  </table>
+
+  <h2>3. Data Storage</h2>
+  <p>All data is stored <strong>locally on your device</strong> using Chrome's built-in storage API (<code>chrome.storage.local</code>). No data is transmitted to or stored on any external server.</p>
+
+  <h2>4. Third-Party Services</h2>
+  <p>Descle communicates only with Google's API servers to retrieve your calendar data. This communication occurs directly between your browser and Google. We do not operate any intermediary servers.</p>
+
+  <h2>5. Data Sharing</h2>
+  <p>We do not collect, sell, share, or transfer any user data to third parties.</p>
+
+  <h2>6. Data Retention</h2>
+  <p>Data remains on your device until you:</p>
+  <ul>
+    <li>Clear the extension's storage</li>
+    <li>Uninstall the extension</li>
+    <li>Disconnect your Google account from the extension</li>
+  </ul>
+
+  <h2>7. User Control</h2>
+  <ul>
+    <li>You can disconnect your Google account at any time via the "Disconnect" button.</li>
+    <li>You can delete individual todos or bookmarks directly in the dashboard.</li>
+    <li>Uninstalling the extension removes all locally stored data.</li>
+  </ul>
+
+  <h2>8. Changes to This Policy</h2>
+  <p>If this policy is updated, the revision date at the top of the page will be changed. Continued use of the extension after changes constitutes acceptance.</p>
+
+  <h2>9. Contact</h2>
+  <p>For questions about this privacy policy, contact us at <a href="mailto:office@spacecloud.city">office@spacecloud.city</a>.</p>
+
+  <div class="footer">Descle &copy; 2026</div>
+</body>
+</html>

@@ -30,7 +30,15 @@
       "Bash(python3 *)",
       "Bash(rtk pip *)",
       "Bash(cat)",
-      "Bash(swift /tmp/gen_icon.swift)"
+      "Bash(swift /tmp/gen_icon.swift)",
+      "Bash(zip -r ../descle.zip .)",
+      "Bash(rtk curl *)",
+      "Bash(kill 8618)",
+      "Bash(awk 'NR>1{print $2}')",
+      "Bash(xargs kill *)",
+      "Bash(rtk playwright *)",
+      "Bash(node *)",
+      "Bash(npm install *)"
     ]
   }
 }

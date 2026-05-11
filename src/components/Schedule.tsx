@@ -72,7 +72,7 @@ export default function Schedule({ isOnboarding }: { isOnboarding?: boolean }) {
   );
 
   const effectiveEmail = isOnboarding
-    ? 'user@example.com'
+    ? 'id@email.com'
     : isDev && !oauthConnected ? DEV_MOCK_EMAIL : userEmail;
   const isSpaceCloudUser = effectiveEmail?.endsWith('@spacecloud.kr') ?? false;
 

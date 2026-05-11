@@ -1,3 +1,6 @@
 node_modules/
 dist/
 key.pem
+descle.zip
+settings.local.json
+screenshots/
