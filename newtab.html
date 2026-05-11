@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/png" sizes="16x16" href="./icons/icon-16.png" />
+  <link rel="icon" type="image/png" sizes="48x48" href="./icons/icon-48.png" />
+  <link rel="icon" type="image/png" sizes="128x128" href="./icons/icon-128.png" />
+  <title>New Tab</title>
+  <script>
+    (function(){
+      var t = localStorage.getItem('dashboardTheme');
+      var d = (t === 'dark') || (t !== 'light' && matchMedia('(prefers-color-scheme:dark)').matches);
+      if(d) document.documentElement.setAttribute('data-theme','dark');
+    })();
+  </script>
+</head>
+<body>
+  <div id="root"></div>
+  <script type="module" src="./src/index.tsx"></script>
+</body>
+</html>

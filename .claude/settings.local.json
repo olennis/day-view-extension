@@ -1,0 +1,36 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(rtk npm *)",
+      "Bash(rtk read *)",
+      "Bash(rtk npx *)",
+      "Bash(rtk ls *)",
+      "Bash(npm -v)",
+      "Bash(./node_modules/.bin/vite build *)",
+      "Bash(./node_modules/.bin/vite)",
+      "Bash(kill %1)",
+      "Bash(wait)",
+      "Bash(rtk tsc *)",
+      "Bash(npm run *)",
+      "Bash(openssl genrsa *)",
+      "Bash(openssl pkcs8 *)",
+      "Bash(openssl rsa *)",
+      "Bash(openssl base64 *)",
+      "Bash(rtk grep *)",
+      "Bash(rtk tree *)",
+      "Bash(sips -g all favicon.svg.png)",
+      "Bash(sips -z 48 48 favicon.svg.png --out icon-48.png)",
+      "Bash(sips -z 16 16 favicon.svg.png --out icon-16.png)",
+      "Bash(qlmanage -t -s 128 -o icons/ icons/favicon.svg)",
+      "Bash(cp icons/favicon.svg.png icons/icon-128.png)",
+      "Bash(sips -z 48 48 icons/favicon.svg.png --out icons/icon-48.png)",
+      "Bash(sips -z 16 16 icons/favicon.svg.png --out icons/icon-16.png)",
+      "Bash(sips *)",
+      "Bash(python3 -c \"from PIL import Image, ImageDraw, ImageFont; print\\('pillow ok'\\)\")",
+      "Bash(python3 *)",
+      "Bash(rtk pip *)",
+      "Bash(cat)",
+      "Bash(swift /tmp/gen_icon.swift)"
+    ]
+  }
+}

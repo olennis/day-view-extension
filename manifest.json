@@ -1,0 +1,30 @@
+{
+  "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAr95FafnL13zOtnpHpoT7d9BcQmXyS1Lq2iViK/IkqQL2UEU3HgpTaPUOwUF4hmw1MRLwB3h46tgK1DSw28INpOSXkvCG00fzLmb4TNWoTR+bxgGm3U9rHsEEt6ECsbH85Vs+QYopvYow3Q10PhvTabazE6jLMmmiJ2YY+2PdgohgOVYpG0mYLYFpl+lK41KX3O6Vnx/ZByHQQG/6c6eU6+YnXrMQh4+Vz3ANtlgn6HdH+sR/E0OCH/jGUf3M5G6UGrJufs8IpXWLw+7mnQ26Z0RsNT0lwYq7SsVOI1NmwyhBpGnud5pNWuMA5AdXsdXQ/NVHF6tsTRu1IpTdLxqAewIDAQAB",
+  "manifest_version": 3,
+  "name": "Descle",
+  "version": "1.0.0",
+  "description": "Glanceable new tab dashboard — schedule, todos, quick links at a glance",
+  "permissions": ["identity", "storage", "alarms", "bookmarks"],
+  "chrome_url_overrides": {
+    "newtab": "newtab.html"
+  },
+  "options_page": "options.html",
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_security_policy": {
+    "extension_pages": "script-src 'self'; object-src 'self'"
+  },
+  "oauth2": {
+    "client_id": "195619263297-90vevmr9ho1opidgq8vh1guar9ec0f1g.apps.googleusercontent.com",
+    "scopes": [
+      "https://www.googleapis.com/auth/calendar.readonly",
+      "https://www.googleapis.com/auth/userinfo.email"
+    ]
+  },
+  "icons": {
+    "16": "icons/icon-16.png",
+    "48": "icons/icon-48.png",
+    "128": "icons/icon-128.png"
+  }
+}
