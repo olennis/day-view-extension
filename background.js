@@ -80,6 +80,7 @@ async function disconnectCalendar() {
       calendarEvents: [],
       calendarLastFetched: null,
       userEmail: null,
+      userProfileImage: null,
     });
     return { success: true };
   } catch (err) {
@@ -109,6 +110,9 @@ async function fetchAndCacheUserEmail(token) {
       const data = await response.json();
       if (data.email) {
         await chrome.storage.local.set({ userEmail: data.email });
+      }
+      if (data.picture) {
+        await chrome.storage.local.set({ userProfileImage: data.picture });
       }
     }
   } catch {

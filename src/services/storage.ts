@@ -7,6 +7,8 @@ const STORAGE_KEYS = {
   calendarLastFetched: 'calendarLastFetched',
   oauthConnected: 'oauthConnected',
   userEmail: 'userEmail',
+  userProfileImage: 'userProfileImage',
+  onboardingCompleted: 'onboardingCompleted',
 } as const;
 
 export async function getTodos(): Promise<Todo[]> {
@@ -66,6 +68,24 @@ export async function getUserEmail(): Promise<string | null> {
 
 export async function setUserEmail(email: string | null): Promise<void> {
   await chrome.storage.local.set({ [STORAGE_KEYS.userEmail]: email });
+}
+
+export async function getUserProfileImage(): Promise<string | null> {
+  const result = await chrome.storage.local.get(STORAGE_KEYS.userProfileImage);
+  return result[STORAGE_KEYS.userProfileImage] ?? null;
+}
+
+export async function setUserProfileImage(url: string | null): Promise<void> {
+  await chrome.storage.local.set({ [STORAGE_KEYS.userProfileImage]: url });
+}
+
+export async function getOnboardingCompleted(): Promise<boolean> {
+  const result = await chrome.storage.local.get(STORAGE_KEYS.onboardingCompleted);
+  return result[STORAGE_KEYS.onboardingCompleted] ?? false;
+}
+
+export async function setOnboardingCompleted(completed: boolean): Promise<void> {
+  await chrome.storage.local.set({ [STORAGE_KEYS.onboardingCompleted]: completed });
 }
 
 export { STORAGE_KEYS };

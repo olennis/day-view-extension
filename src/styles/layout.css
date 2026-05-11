@@ -155,11 +155,16 @@ body {
   background: var(--color-current-bg);
   border-radius: 12px;
   padding: 16px 20px;
-  margin-bottom: 24px;
+  margin-top: 16px;
+  margin-bottom: 16px;
   position: relative;
   overflow: hidden;
   transition: background 0.2s, box-shadow 0.2s;
   cursor: pointer;
+  height: 100px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .next-up-card:hover {
@@ -490,4 +495,111 @@ body {
   color: var(--color-primary);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
   transform: scale(1.08);
+}
+
+/* ── Onboarding ─────────────────────────────────── */
+
+.onboarding-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  z-index: 999;
+}
+
+.onboarding-active {
+  position: relative;
+  z-index: 1000;
+  background: var(--color-neutral);
+  pointer-events: none;
+}
+
+.onboarding-tooltip {
+  position: fixed;
+  z-index: 1001;
+  width: 300px;
+  padding: 24px;
+  background: var(--color-white);
+  border-radius: var(--radius-card);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+  animation: onboarding-fadein 0.25s ease;
+}
+
+@keyframes onboarding-fadein {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.onboarding-dots {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 16px;
+}
+
+.onboarding-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--color-border);
+  transition: background 0.2s;
+}
+
+.onboarding-dot.active {
+  background: var(--color-primary);
+}
+
+.onboarding-dot.done {
+  background: var(--color-success);
+}
+
+.onboarding-title {
+  font-family: var(--font-headline);
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--color-text);
+  margin-bottom: 8px;
+}
+
+.onboarding-desc {
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--color-text-secondary);
+  margin-bottom: 20px;
+}
+
+.onboarding-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.onboarding-skip {
+  background: none;
+  border: none;
+  font-size: 13px;
+  font-family: var(--font-body);
+  color: var(--color-text-muted);
+  cursor: pointer;
+  padding: 4px 0;
+  transition: color 0.15s;
+}
+
+.onboarding-skip:hover {
+  color: var(--color-text-secondary);
+}
+
+.onboarding-next {
+  padding: 8px 20px;
+  background: var(--color-primary);
+  border: none;
+  border-radius: var(--radius-small);
+  font-size: 14px;
+  font-family: var(--font-body);
+  font-weight: 600;
+  color: #fff;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.onboarding-next:hover {
+  background: var(--color-secondary);
 }

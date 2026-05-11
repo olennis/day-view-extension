@@ -1,6 +1,33 @@
 import { useState, useEffect, useCallback, useMemo } from 'react';
 import { LinkGroup } from '../types';
 
+const ONBOARDING_GROUPS: LinkGroup[] = [
+  {
+    id: 'ob-dev', name: 'Development', order: 0,
+    links: [
+      { id: 'ob-github', name: 'GitHub', url: 'https://github.com', favicon: '' },
+      { id: 'ob-gitlab', name: 'GitLab', url: 'https://gitlab.com', favicon: '' },
+      { id: 'ob-jira', name: 'Jira', url: 'https://jira.atlassian.com', favicon: '' },
+    ],
+  },
+  {
+    id: 'ob-comm', name: 'Communication', order: 1,
+    links: [
+      { id: 'ob-slack', name: 'Slack', url: 'https://slack.com', favicon: '' },
+      { id: 'ob-notion', name: 'Notion', url: 'https://notion.so', favicon: '' },
+      { id: 'ob-figma', name: 'Figma', url: 'https://figma.com', favicon: '' },
+    ],
+  },
+  {
+    id: 'ob-mon', name: 'Monitoring', order: 2,
+    links: [
+      { id: 'ob-grafana', name: 'Grafana', url: 'https://grafana.com', favicon: '' },
+      { id: 'ob-sentry', name: 'Sentry', url: 'https://sentry.io', favicon: '' },
+      { id: 'ob-datadog', name: 'Datadog', url: 'https://datadoghq.com', favicon: '' },
+    ],
+  },
+];
+
 /* ── helpers ─────────────────────────────────────────── */
 
 function getFaviconUrl(url: string): string {
@@ -132,8 +159,10 @@ function useBookmarks(): [LinkGroup[], BookmarkFolder[], boolean] {
 
 /* ── component ───────────────────────────────────────── */
 
-export default function QuickLinks() {
-  const [groups, folders, loading] = useBookmarks();
+export default function QuickLinks({ isOnboarding }: { isOnboarding?: boolean }) {
+  const [rawGroups, folders, rawLoading] = useBookmarks();
+  const groups = isOnboarding ? ONBOARDING_GROUPS : rawGroups;
+  const loading = isOnboarding ? false : rawLoading;
   const [query, setQuery] = useState('');
   const [adding, setAdding] = useState(false);
   const [newTitle, setNewTitle] = useState('');

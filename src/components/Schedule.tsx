@@ -26,6 +26,21 @@ function createMockEvents(): CalendarEvent[] {
   ];
 }
 
+function createOnboardingMockEvents(): CalendarEvent[] {
+  const now = new Date();
+  const d = (offsetMin: number) =>
+    new Date(now.getTime() + offsetMin * 60000).toISOString();
+
+  return [
+    { id: 'ob-1', summary: 'Daily Standup', start: d(-120), end: d(-90) },
+    { id: 'ob-2', summary: '\uD300 \uC704\uD074\uB9AC \uC2A4\uD0E0\uB4DC\uC5C5', start: d(-60), end: d(-30), location: 'Meeting Room A' },
+    { id: 'ob-3', summary: '\uB514\uC790\uC778 \uC2DC\uC2A4\uD15C \uD611\uC758', start: d(-10), end: d(50), hangoutLink: 'https://meet.google.com/mock' },
+    { id: 'ob-4', summary: '\uCF54\uB4DC \uB9AC\uBDF0 \uC138\uC158', start: d(60), end: d(120), hangoutLink: 'https://meet.google.com/mock2' },
+    { id: 'ob-5', summary: '\uC2A4\uD504\uB9B0\uD2B8 \uB9AC\uBDF0', start: d(180), end: d(240), location: 'Conference Room #301' },
+    { id: 'ob-6', summary: '\uD300 \uD68C\uACE0', start: d(300), end: d(360) },
+  ];
+}
+
 function formatTime(iso: string): string {
   return new Date(iso).toLocaleTimeString('ko-KR', {
     hour: '2-digit',
@@ -34,7 +49,7 @@ function formatTime(iso: string): string {
   });
 }
 
-export default function Schedule() {
+export default function Schedule({ isOnboarding }: { isOnboarding?: boolean }) {
   const isDev = import.meta.env.DEV;
 
   const [storedEvents, , eventsLoading] = useChromeStorage<CalendarEvent[]>(
@@ -56,10 +71,14 @@ export default function Schedule() {
     null,
   );
 
-  const effectiveEmail = isDev && !oauthConnected ? DEV_MOCK_EMAIL : userEmail;
+  const effectiveEmail = isOnboarding
+    ? 'user@example.com'
+    : isDev && !oauthConnected ? DEV_MOCK_EMAIL : userEmail;
   const isSpaceCloudUser = effectiveEmail?.endsWith('@spacecloud.kr') ?? false;
 
-  const events = isDev && !oauthConnected ? createMockEvents() : storedEvents;
+  const events = isOnboarding
+    ? createOnboardingMockEvents()
+    : isDev && !oauthConnected ? createMockEvents() : storedEvents;
 
   const [isOnline, setIsOnline] = useState(navigator.onLine);
   const [connecting, setConnecting] = useState(false);
@@ -135,7 +154,7 @@ export default function Schedule() {
         </div>
       </div>
 
-      {(oauthConnected || isDev) && effectiveEmail && (
+      {(oauthConnected || isDev || isOnboarding) && effectiveEmail && (
         <div style={connectedEmailStyle}>
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
@@ -147,7 +166,7 @@ export default function Schedule() {
 
       {!isOnline && <div className="offline-banner">Offline</div>}
 
-      {!oauthConnected && !isDev ? (
+      {!oauthConnected && !isDev && !isOnboarding ? (
         <div style={{ textAlign: 'center', padding: '24px 0' }}>
           <p style={{ color: 'var(--color-text-secondary)', fontSize: 14, marginBottom: 12 }}>
             Connect your calendar to see today's schedule
@@ -244,36 +263,39 @@ export default function Schedule() {
 
                 if (isCurrent) {
                   return (
-                    <div key={event.id} style={{ minHeight: 60 }}>
-                      <div style={currentCardStyle}>
+                    <div key={event.id} style={timelineRowStyle}>
+                      <div style={timelineLeftStyle}>
                         <span style={currentTimeStyle}>
                           {formatTime(event.start)}
                         </span>
-                        <div style={{ flex: 1, minWidth: 0 }}>
-                          <div style={timelineTitleRowStyle}>
-                            <div style={{ ...timelineTitleStyle, fontWeight: 600 }}>
-                              {event.summary}
-                            </div>
-                            {hasOnlineLink && (
-                              <a
-                                href={event.hangoutLink}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                title="Google Meet 참석"
-                                style={meetButtonStyle}
-                              >
-                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                  <path d="M23 7l-7 5 7 5V7z" />
-                                  <rect x="1" y="5" width="15" height="14" rx="2" ry="2" />
-                                </svg>
-                              </a>
-                            )}
+                        {!isLast && (
+                          <div style={{ ...timelineLineStyle, background: 'var(--color-current-border)' }} />
+                        )}
+                      </div>
+                      <div style={timelineContentStyle}>
+                        <div style={timelineTitleRowStyle}>
+                          <div style={{ ...timelineTitleStyle, fontWeight: 600 }}>
+                            {event.summary}
                           </div>
-                          <div style={timelineStatusStyle}>
-                            IN PROGRESS
-                            {hasOnlineLink && ' \u2022 ONLINE'}
-                            {event.location && ` \u2022 ${event.location}`}
-                          </div>
+                          {hasOnlineLink && (
+                            <a
+                              href={event.hangoutLink}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              title="Google Meet 참석"
+                              style={meetButtonStyle}
+                            >
+                              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                <path d="M23 7l-7 5 7 5V7z" />
+                                <rect x="1" y="5" width="15" height="14" rx="2" ry="2" />
+                              </svg>
+                            </a>
+                          )}
+                        </div>
+                        <div style={timelineStatusStyle}>
+                          IN PROGRESS
+                          {hasOnlineLink && ' \u2022 ONLINE'}
+                          {event.location && ` \u2022 ${event.location}`}
                         </div>
                       </div>
                     </div>
@@ -388,7 +410,7 @@ const connectedEmailStyle: React.CSSProperties = {
   gap: 6,
   fontSize: 12,
   color: 'var(--color-text-muted)',
-  marginBottom: 12,
+  marginBottom: 8,
 };
 
 /* ─── Next Up Card ─── */
@@ -443,7 +465,7 @@ const nextUpLocationStyle: React.CSSProperties = {
 const timelineContainerStyle: React.CSSProperties = {
   display: 'flex',
   flexDirection: 'column',
-  gap: 0,
+  gap: 2,
   padding: '4px 0',
 };
 
@@ -451,7 +473,7 @@ const timelineRowStyle: React.CSSProperties = {
   display: 'flex',
   alignItems: 'stretch',
   gap: 16,
-  minHeight: 60,
+  minHeight: 56,
 };
 
 const timelineLeftStyle: React.CSSProperties = {
@@ -477,18 +499,8 @@ const timelineLineStyle: React.CSSProperties = {
 
 const timelineContentStyle: React.CSSProperties = {
   flex: 1,
-  padding: '6px 0',
-  minHeight: 40,
-};
-
-const currentCardStyle: React.CSSProperties = {
-  display: 'flex',
-  alignItems: 'center',
-  gap: 16,
-  background: 'var(--color-current-bg)',
-  borderLeft: '3px solid var(--color-current-border)',
-  borderRadius: 10,
-  padding: '14px 18px',
+  padding: '4px 0',
+  minHeight: 36,
 };
 
 const currentTimeStyle: React.CSSProperties = {

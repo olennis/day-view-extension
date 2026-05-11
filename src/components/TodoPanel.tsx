@@ -3,6 +3,15 @@ import { Todo, PRIORITY_ORDER, PRIORITY_LABELS, PRIORITY_COLORS, PRIORITY_BG_COL
 import { useChromeStorage } from '../hooks/useChromeStorage';
 import { getTodos, setTodos } from '../services/storage';
 
+const ONBOARDING_TODOS: Todo[] = [
+  { id: 'ob-1', text: '주간 리포트 작성', priority: 'P0', completed: false, createdAt: Date.now(), completedAt: null, archivedAt: null },
+  { id: 'ob-2', text: 'API 문서 업데이트', priority: 'P1', completed: false, createdAt: Date.now(), completedAt: null, archivedAt: null },
+  { id: 'ob-3', text: '코드 리뷰 피드백 반영', priority: 'P2', completed: false, createdAt: Date.now(), completedAt: null, archivedAt: null },
+  { id: 'ob-4', text: 'PR 머지 후 배포 확인', priority: 'P1', completed: false, createdAt: Date.now(), completedAt: null, archivedAt: null },
+  { id: 'ob-5', text: '스탠드업 미팅 노트 정리', priority: null, completed: true, createdAt: Date.now() - 3600000, completedAt: Date.now(), archivedAt: null },
+  { id: 'ob-6', text: '디자인 시스템 컴포넌트 검토', priority: 'P1', completed: true, createdAt: Date.now() - 7200000, completedAt: Date.now(), archivedAt: null },
+];
+
 function sortTodos(todos: Todo[]): Todo[] {
   return [...todos].sort((a, b) => {
     // 완료된 태스크는 하단
@@ -32,8 +41,8 @@ function getInsightMessage(rate: number, pending: number): ReactNode {
   return <>모든 할 일을 완료했어요. 수고했습니다!</>;
 }
 
-export default function TodoPanel() {
-  const [todos, setTodosState, loading] = useChromeStorage<Todo[]>(
+export default function TodoPanel({ isOnboarding }: { isOnboarding?: boolean }) {
+  const [todos, setTodosState, rawLoading] = useChromeStorage<Todo[]>(
     'todos',
     getTodos,
     setTodos,
@@ -44,7 +53,8 @@ export default function TodoPanel() {
   const [newPriority, setNewPriority] = useState<Todo['priority']>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const activeTodos = todos.filter((t) => !t.archivedAt);
+  const loading = isOnboarding ? false : rawLoading;
+  const activeTodos = isOnboarding ? ONBOARDING_TODOS : todos.filter((t) => !t.archivedAt);
   const sorted = sortTodos(activeTodos);
   const completedCount = activeTodos.filter((t) => t.completed).length;
   const totalCount = activeTodos.length;

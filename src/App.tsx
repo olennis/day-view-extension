@@ -2,6 +2,12 @@ import { useRef, useCallback, useState, useEffect } from 'react';
 import Schedule from './components/Schedule';
 import TodoPanel from './components/TodoPanel';
 import QuickLinks from './components/QuickLinks';
+import Onboarding from './components/Onboarding';
+import { useChromeStorage } from './hooks/useChromeStorage';
+import {
+  getUserProfileImage, setUserProfileImage,
+  getOnboardingCompleted, setOnboardingCompleted,
+} from './services/storage';
 import './styles/tokens.css';
 import './styles/layout.css';
 
@@ -46,6 +52,19 @@ export default function App() {
   const [ratio, setRatio] = useState(loadRatio);
   const dragging = useRef<'left' | 'right' | null>(null);
   const [theme, setThemeState] = useState<Theme>(loadTheme);
+  const [profileImage] = useChromeStorage<string | null>(
+    'userProfileImage',
+    getUserProfileImage,
+    setUserProfileImage,
+    null,
+  );
+  const [onboardingDone, setOnboardingDone, onboardingLoading] = useChromeStorage<boolean>(
+    'onboardingCompleted',
+    getOnboardingCompleted,
+    setOnboardingCompleted,
+    false,
+  );
+  const isOnboarding = !onboardingLoading && !onboardingDone;
 
   useEffect(() => {
     applyTheme(theme);
@@ -112,6 +131,38 @@ export default function App() {
           <span className="top-bar-separator">/</span>
           <span className="top-bar-breadcrumb">DayView Dashboard</span>
         </div>
+        <div className="top-bar-right">
+          {profileImage ? (
+            <img
+              src={profileImage}
+              alt="Profile"
+              referrerPolicy="no-referrer"
+              style={{
+                width: 32,
+                height: 32,
+                borderRadius: '50%',
+                objectFit: 'cover',
+              }}
+            />
+          ) : (
+            <div
+              style={{
+                width: 32,
+                height: 32,
+                borderRadius: '50%',
+                background: 'var(--color-border-light)',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}
+            >
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--color-text-muted)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                <circle cx="12" cy="7" r="4" />
+              </svg>
+            </div>
+          )}
+        </div>
       </header>
 
       <button
@@ -150,7 +201,7 @@ export default function App() {
         style={{ gridTemplateColumns: cols }}
       >
         <section className="col-schedule">
-          <Schedule />
+          <Schedule isOnboarding={isOnboarding} />
         </section>
 
         <div
@@ -159,7 +210,7 @@ export default function App() {
         />
 
         <section className="col-todo">
-          <TodoPanel />
+          <TodoPanel isOnboarding={isOnboarding} />
         </section>
 
         <div
@@ -168,9 +219,13 @@ export default function App() {
         />
 
         <section className="col-links">
-          <QuickLinks />
+          <QuickLinks isOnboarding={isOnboarding} />
         </section>
       </main>
+
+      {!onboardingLoading && !onboardingDone && (
+        <Onboarding onComplete={() => setOnboardingDone(true)} />
+      )}
     </>
   );
 }
