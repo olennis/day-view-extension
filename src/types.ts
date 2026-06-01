@@ -9,6 +9,14 @@ export interface Todo {
   archivedAt: number | null;
 }
 
+export interface Routine {
+  id: string;
+  text: string;
+  createdAt: number;
+  lastCompletedDate: string | null; // 'YYYY-MM-DD' (local) — 마지막 완료 날짜
+  streak: number;                    // lastCompletedDate 기준 연속 달성 일수
+}
+
 export interface LinkItem {
   id: string;
   name: string;

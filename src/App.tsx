@@ -1,6 +1,7 @@
 import { useRef, useCallback, useState, useEffect } from 'react';
 import Schedule from './components/Schedule';
 import TodoPanel from './components/TodoPanel';
+import RoutinePanel from './components/RoutinePanel';
 import QuickLinks from './components/QuickLinks';
 import Onboarding from './components/Onboarding';
 import { useChromeStorage } from './hooks/useChromeStorage';
@@ -211,6 +212,7 @@ export default function App() {
 
         <section className="col-todo">
           <TodoPanel isOnboarding={isOnboarding} />
+          <RoutinePanel isOnboarding={isOnboarding} />
         </section>
 
         <div

@@ -1,7 +1,8 @@
-import { Todo, LinkGroup, CalendarEvent, DEFAULT_LINK_GROUPS } from '../types';
+import { Todo, LinkGroup, CalendarEvent, Routine, DEFAULT_LINK_GROUPS } from '../types';
 
 const STORAGE_KEYS = {
   todos: 'todos',
+  routines: 'routines',
   linkGroups: 'linkGroups',
   calendarEvents: 'calendarEvents',
   calendarLastFetched: 'calendarLastFetched',
@@ -18,6 +19,15 @@ export async function getTodos(): Promise<Todo[]> {
 
 export async function setTodos(todos: Todo[]): Promise<void> {
   await chrome.storage.local.set({ [STORAGE_KEYS.todos]: todos });
+}
+
+export async function getRoutines(): Promise<Routine[]> {
+  const result = await chrome.storage.local.get(STORAGE_KEYS.routines);
+  return result[STORAGE_KEYS.routines] ?? [];
+}
+
+export async function setRoutines(routines: Routine[]): Promise<void> {
+  await chrome.storage.local.set({ [STORAGE_KEYS.routines]: routines });
 }
 
 export async function getLinkGroups(): Promise<LinkGroup[]> {
