@@ -108,7 +108,7 @@ export default function RoutinePanel({ isOnboarding }: { isOnboarding?: boolean 
         <div>
           <h2 style={titleStyle}>ROUTINE</h2>
           <span style={subtitleStyle}>
-            {total > 0 ? `오늘 ${doneCount}/${total} 완료` : '매일 반복되는 습관'}
+            {total > 0 ? `${doneCount} of ${total} done today` : 'Build your daily habits'}
           </span>
         </div>
         <button
@@ -131,10 +131,10 @@ export default function RoutinePanel({ isOnboarding }: { isOnboarding?: boolean 
             value={newText}
             onChange={(e) => setNewText(e.target.value)}
             onKeyDown={(e) => {
-              if (e.key === 'Enter') addRoutine();
+              if (e.key === 'Enter' && !e.nativeEvent.isComposing) addRoutine();
               if (e.key === 'Escape') { setShowInput(false); setNewText(''); }
             }}
-            placeholder="매일 반복할 루틴 (예: 비타민 챙겨먹기)"
+            placeholder="What do you do every day?"
             style={inputStyle}
           />
           <div style={inputActionsStyle}>
@@ -154,7 +154,7 @@ export default function RoutinePanel({ isOnboarding }: { isOnboarding?: boolean 
         {loading ? (
           <p style={emptyStyle}>Loading...</p>
         ) : total === 0 && !showInput ? (
-          <p style={emptyStyle}>첫 루틴을 추가해 보세요</p>
+          <p style={emptyStyle}>Add your first routine</p>
         ) : (
           items.map((r) => {
             const done = isDoneToday(r);

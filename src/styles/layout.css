@@ -181,27 +181,6 @@ body {
   opacity: 1;
 }
 
-/* ── 비번톡톡 link (de-emphasized, under meeting room) ─ */
-
-.pass-link {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-top: 10px;
-  padding: 8px 4px;
-  font-size: 13px;
-  font-weight: 500;
-  font-family: var(--font-body);
-  color: var(--color-text-muted);
-  text-decoration: none;
-  cursor: pointer;
-  transition: color 0.15s;
-}
-
-.pass-link:hover {
-  color: var(--color-text-secondary);
-}
-
 /* ── search input ─────────────────────────────────── */
 
 .search-wrap {

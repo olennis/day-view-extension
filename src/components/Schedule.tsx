@@ -369,19 +369,22 @@ export default function Schedule({ isOnboarding }: { isOnboarding?: boolean }) {
                 </svg>
               </a>
 
-              {/* \uBE44\uBC88\uD1A1\uD1A1 \u2014 \uD68C\uC758\uC2E4 \uC608\uC57D\uBCF4\uB2E4 \uB35C \uAC15\uC870\uB41C \uD14D\uC2A4\uD2B8 \uB9C1\uD06C (\uC544\uC774\uCF58\uC740 \uC790\uBB3C\uC1E0=\uBE44\uBC00\uBC88\uD638 \uC5F0\uC0C1) */}
+              {/* 비번톡톡 — 회의실 예약과 동일한 카드 UI (아이콘은 자물쇠=비밀번호 연상) */}
               <a
                 href="https://pass-opal-six.vercel.app/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="pass-link"
+                style={{ ...meetingRoomLinkStyle, marginTop: 12 }}
               >
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0 }}>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#7C3AED" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0 }}>
                   <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
                   <path d="M7 11V7a5 5 0 0 1 10 0v4" />
                 </svg>
-                <span>\uBE44\uBC88\uD1A1\uD1A1</span>
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0 }}>
+                <div style={{ flex: 1, minWidth: 0 }}>
+                  <div style={meetingRoomLabelStyle}>{'비번톡톡'}</div>
+                  <div style={meetingRoomSubLabelStyle}>PASSWORD MANAGER</div>
+                </div>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#7C3AED" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0 }}>
                   <path d="M9 18l6-6-6-6" />
                 </svg>
               </a>

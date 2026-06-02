@@ -139,7 +139,7 @@ export default function TodoPanel({ isOnboarding }: { isOnboarding?: boolean }) 
             value={newText}
             onChange={(e) => setNewText(e.target.value)}
             onKeyDown={(e) => {
-              if (e.key === 'Enter') addTodo();
+              if (e.key === 'Enter' && !e.nativeEvent.isComposing) addTodo();
               if (e.key === 'Escape') { setShowInput(false); setNewText(''); }
             }}
             placeholder="What needs to be done?"
