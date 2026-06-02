@@ -360,6 +360,7 @@ const inputStyle: React.CSSProperties = {
   fontFamily: 'var(--font-body)',
   outline: 'none',
   color: 'var(--color-text)',
+  background: 'transparent',
 };
 
 const inputAddBtnStyle: React.CSSProperties = {
